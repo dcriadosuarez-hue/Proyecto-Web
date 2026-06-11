@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExpensasClaras — Auditá las expensas de tu consorcio</title>
+
+<!-- SEO -->
+<meta name="description" content="Subí las liquidaciones de tu edificio y en menos de un minuto sabés si tu administrador está cobrando lo que corresponde. Gratis, sin registro.">
+<meta name="keywords" content="expensas, consorcio, auditoría, administrador, Buenos Aires, CABA, liquidaciones, irregularidades">
+<meta name="author" content="ExpensasClaras">
+<link rel="canonical" href="https://expensasclaras.com.ar">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://expensasclaras.com.ar">
+<meta property="og:title" content="¿Tu consorcio te cobra lo que corresponde?">
+<meta property="og:description" content="Auditá las expensas de tu edificio con IA en menos de un minuto. Detectamos irregularidades, verificamos la matrícula y generamos un informe completo.">
+<meta property="og:image" content="https://expensasclaras.com.ar/og-image.png">
+<meta property="og:locale" content="es_AR">
+<meta property="og:site_name" content="ExpensasClaras">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="¿Tu consorcio te cobra lo que corresponde?">
+<meta name="twitter:description" content="Auditá las expensas de tu edificio con IA en menos de un minuto.">
+<meta name="twitter:image" content="https://expensasclaras.com.ar/og-image.png">
+
+<!-- Favicon inline SVG -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 340'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%25' stop-color='%231338A8'/><stop offset='100%25' stop-color='%231B4FD8'/></linearGradient></defs><rect width='340' height='340' rx='72' fill='url(%23g)'/><rect x='92' y='62' width='148' height='182' rx='14' fill='white'/><polygon points='200,62 240,102 200,102' fill='%23D8E3F8'/><rect x='110' y='118' width='68' height='7' rx='3.5' fill='%23C4D0EE'/><rect x='110' y='134' width='52' height='7' rx='3.5' fill='%23C4D0EE'/><rect x='110' y='150' width='62' height='7' rx='3.5' fill='%23C4D0EE'/><circle cx='218' cy='214' r='46' fill='%231B4FD8' stroke='white' stroke-width='7'/><circle cx='212' cy='208' r='17' fill='none' stroke='white' stroke-width='6'/><line x1='224' y1='220' x2='236' y2='232' stroke='white' stroke-width='6' stroke-linecap='round'/><polyline points='206,208 211,213 221,202' fill='none' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 340'><rect width='340' height='340' rx='72' fill='%231B4FD8'/><rect x='92' y='62' width='148' height='182' rx='14' fill='white'/><circle cx='218' cy='214' r='46' fill='%231B4FD8' stroke='white' stroke-width='7'/></svg>">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,800,900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-snap-type:y mandatory;}
+body{font-family:'Satoshi',sans-serif;background:#fff;color:#0A0A0A;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid #EBEBEB;}
+.nav-cta{background:#1B4FD8;color:#fff;font-family:'Satoshi',sans-serif;font-size:0.85rem;font-weight:700;padding:0.5rem 1.375rem;border-radius:6px;border:none;cursor:pointer;transition:opacity 0.2s;}
+.nav-cta:hover{opacity:0.8;}
+nav ul{display:flex;list-style:none;}
+nav ul a{color:#999;text-decoration:none;font-size:0.85rem;font-weight:500;padding:0.35rem 1rem;transition:color 0.15s;}
+nav ul a:hover{color:#0A0A0A;}
+
+/* SCREENS */
+.screen{min-height:100vh;scroll-snap-align:start;display:flex;align-items:center;padding:5.5rem 3rem;}
+.si{max-width:1280px;margin:0 auto;width:100%;}
+.eyebrow{font-size:0.75rem;font-weight:700;color:#1B4FD8;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:0.75rem;}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:#1B4FD8;}
+
+/* ── S1: HERO + WIDGET ── */
+.s-hero{background:#fff;}
+.hero-split{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.hero-copy h1{font-size:clamp(2.5rem,4.5vw,4rem);font-weight:900;line-height:1.02;letter-spacing:-2.5px;color:#0A0A0A;margin-bottom:1.25rem;}
+.hero-copy h1 b{color:#1B4FD8;}
+.hero-copy p{font-size:1rem;color:#777;line-height:1.7;margin-bottom:2rem;max-width:400px;}
+.hero-steps{display:flex;flex-direction:column;gap:1rem;margin-top:2rem;padding-top:2rem;border-top:1px solid #F0F0F0;}
+.hstep{display:flex;align-items:center;gap:0.875rem;}
+.hstep-n{font-size:0.65rem;font-weight:800;letter-spacing:0.1em;color:#1B4FD8;width:20px;flex-shrink:0;}
+.hstep-t{font-size:0.875rem;font-weight:600;color:#0A0A0A;}
+.hstep-d{font-size:0.75rem;color:#BBB;margin-top:0.1rem;}
+
+/* Widget */
+.wcard{background:#fff;border-radius:14px;overflow:hidden;position:relative;box-shadow:0 2px 24px rgba(27,79,216,0.1),0 0 0 1px rgba(27,79,216,0.08);}
+.wbar{background:#F8F9FC;border-bottom:1px solid #EBEBEB;padding:0.875rem 1.25rem;display:flex;align-items:center;justify-content:space-between;}
+.wdots{display:flex;gap:5px;}
+.wdot{width:10px;height:10px;border-radius:50%;}
+.wbody{padding:1.5rem;}
+.dropzone{border:1.5px dashed #D0D8F0;border-radius:10px;padding:2rem 1.5rem;text-align:center;cursor:pointer;transition:all 0.2s;background:#F8F9FC;position:relative;margin-bottom:1rem;}
+.dropzone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.dropzone:hover,.dropzone.over{border-color:#1B4FD8;background:#EEF3FF;}
+.dz-icon{font-size:1.5rem;margin-bottom:0.75rem;}
+.dropzone h4{font-size:0.875rem;font-weight:700;color:#0A0A0A;margin-bottom:0.2rem;}
+.dropzone p{font-size:0.78rem;color:#AAA;}
+.dz-note{font-size:0.7rem;color:#1B4FD8;font-weight:600;margin-top:0.3rem;}
+.dz-tags{display:flex;gap:0.35rem;justify-content:center;flex-wrap:wrap;margin-top:0.625rem;}
+.dz-tag{font-size:0.63rem;background:#EEF3FF;color:#6B8AC4;padding:0.1rem 0.4rem;border-radius:4px;}
+.files-list{display:flex;flex-direction:column;gap:0.35rem;margin-bottom:0.875rem;}
+.file-row{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.75rem;background:#F8F9FC;border:1px solid #EBEBEB;border-radius:7px;animation:si 0.2s ease;}
+@keyframes si{from{opacity:0;transform:translateX(-4px)}to{opacity:1;transform:none}}
+.fr-name{flex:1;font-size:0.78rem;font-weight:500;color:#0A0A0A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fr-ok{font-size:0.65rem;font-weight:700;color:#059669;}
+.fr-rm{background:none;border:none;color:#CCC;cursor:pointer;font-size:0.78rem;transition:color 0.15s;}
+.fr-rm:hover{color:#DC2626;}
+.email-wrap{margin-bottom:0.875rem;display:none;}
+.email-wrap input{width:100%;padding:0.7rem 1rem;border:1.5px solid #D0D8F0;border-radius:7px;font-family:'Satoshi',sans-serif;font-size:0.875rem;color:#0A0A0A;outline:none;transition:border 0.2s;}
+.email-wrap input:focus{border-color:#1B4FD8;}
+.email-note{font-size:0.68rem;color:#CCC;margin-top:0.3rem;}
+.btn-analyze{width:100%;background:#1B4FD8;color:#fff;font-family:'Satoshi',sans-serif;font-size:0.875rem;font-weight:700;padding:0.875rem;border-radius:7px;border:none;cursor:pointer;transition:opacity 0.2s;}
+.btn-analyze:hover{opacity:0.85;}
+.btn-analyze:disabled{background:#E8E8E8;color:#CCC;cursor:not-allowed;opacity:1;}
+.analyzing-ov{display:none;position:absolute;inset:0;background:rgba(255,255,255,0.97);border-radius:14px;align-items:center;justify-content:center;flex-direction:column;gap:1.75rem;z-index:10;}
+.analyzing-ov.active{display:flex;}
+.spin{width:36px;height:36px;border:2.5px solid #E0E8FF;border-top-color:#1B4FD8;border-radius:50%;animation:spin 0.75s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.step-list{display:flex;flex-direction:column;gap:0.5rem;}
+.step-row{display:flex;align-items:center;gap:0.625rem;font-size:0.82rem;color:#CCC;transition:all 0.3s;}
+.step-row.active{color:#0A0A0A;font-weight:600;}
+.step-row.done{color:#059669;}
+.step-ico{width:18px;height:18px;border-radius:50%;border:1.5px solid #E8E8E8;display:flex;align-items:center;justify-content:center;font-size:0.6rem;flex-shrink:0;transition:all 0.3s;}
+.step-row.active .step-ico{border-color:#1B4FD8;color:#1B4FD8;}
+.step-row.done .step-ico{border-color:#059669;color:#059669;}
+.results-panel{display:none;}
+.results-panel.active{display:block;}
+.res-header{padding:1.25rem;border-bottom:1px solid #EBEBEB;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;}
+.score-lock{display:flex;align-items:center;gap:0.75rem;}
+.score-lock-ico{width:48px;height:48px;border-radius:50%;background:#F8F9FC;border:1.5px dashed #D0D8F0;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.score-lock-t{font-size:0.82rem;font-weight:700;color:#0A0A0A;margin-bottom:0.1rem;}
+.score-lock-p{font-size:0.75rem;color:#999;}
+.score-lock-pill{display:inline-flex;background:#1B4FD8;color:#fff;font-size:0.65rem;font-weight:600;padding:0.18rem 0.5rem;border-radius:4px;margin-top:0.3rem;cursor:pointer;}
+.res-months{text-align:right;flex-shrink:0;}
+.res-months-n{font-size:1.75rem;font-weight:900;letter-spacing:-0.5px;line-height:1;color:#0A0A0A;}
+.res-months-l{font-size:0.68rem;color:#AAA;}
+.res-alerts{padding:1rem 1.25rem;display:flex;flex-direction:column;gap:0.35rem;}
+.res-a{display:flex;align-items:flex-start;gap:0.5rem;padding:0.6rem 0.75rem;border-radius:6px;font-size:0.78rem;line-height:1.5;}
+.res-a.r{background:#FEF2F2;border-left:2px solid #DC2626;}
+.res-a.a{background:#FFFBEB;border-left:2px solid #D97706;}
+.res-a.g{background:#ECFDF5;border-left:2px solid #059669;}
+.res-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:6px;}
+.res-a.r .res-dot{background:#DC2626;}
+.res-a.a .res-dot{background:#D97706;}
+.res-a.g .res-dot{background:#059669;}
+.res-note{margin:0 1.25rem;padding:0.5rem 0.75rem;background:#EEF3FF;border-radius:6px;font-size:0.72rem;color:#1B4FD8;display:flex;gap:0.3rem;}
+.res-footer{padding:1rem 1.25rem;border-top:1px solid #EBEBEB;display:flex;gap:0.5rem;margin-top:0.75rem;}
+.btn-upgrade{flex:1;background:#1B4FD8;color:#fff;font-family:'Satoshi',sans-serif;font-size:0.8rem;font-weight:700;padding:0.75rem;border-radius:7px;border:none;cursor:pointer;transition:opacity 0.2s;}
+.btn-upgrade:hover{opacity:0.85;}
+.btn-reset{background:#F5F5F5;color:#666;font-family:'Satoshi',sans-serif;font-size:0.8rem;font-weight:500;padding:0.75rem 1rem;border-radius:7px;border:1px solid #EBEBEB;cursor:pointer;}
+
+/* ── S2: FEATURES ── */
+.s-feat{background:#EEF3FF;}
+.s-feat h2{font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;letter-spacing:-3px;line-height:0.95;color:#0A0A0A;max-width:640px;margin-bottom:3.5rem;}
+.feat-rows{display:flex;flex-direction:column;max-width:820px;}
+.feat-row{display:flex;align-items:center;gap:2rem;padding:1.5rem 0;border-bottom:1px solid rgba(27,79,216,0.1);}
+.feat-row:last-child{border-bottom:none;}
+.feat-ico{width:46px;height:46px;border-radius:11px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;box-shadow:0 1px 4px rgba(27,79,216,0.1);}
+.feat-body{flex:1;}
+.feat-title{font-size:0.975rem;font-weight:700;color:#0A0A0A;margin-bottom:0.2rem;}
+.feat-desc{font-size:0.82rem;color:#6B8AC4;line-height:1.6;}
+.feat-badge{font-size:0.62rem;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:100px;white-space:nowrap;flex-shrink:0;}
+.b-free{background:#ECFDF5;color:#059669;}
+.b-pro{background:#fff;color:#1B4FD8;border:1px solid #D0D8F0;}
+.b-dict{background:#FFF7ED;color:#C2410C;}
+
+/* ── S3: PRICING ── */
+.s-price{background:#fff;}
+.s-price h2{font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;letter-spacing:-3px;line-height:0.95;color:#0A0A0A;margin-bottom:0.875rem;}
+.price-sub{font-size:0.85rem;color:#AAA;margin-bottom:3rem;display:flex;align-items:center;gap:0.5rem;}
+/* 3 column grid — center card is Pro (featured) */
+.pgrid{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:1.5rem;align-items:start;max-width:960px;}
+.pcol{border:1.5px solid #EBEBEB;border-radius:14px;padding:2rem 1.75rem;}
+.pcol.pop{border-color:#1B4FD8;border-width:2px;background:#1B4FD8;transform:scale(1.02);box-shadow:0 8px 40px rgba(27,79,216,0.25);}
+.pop-lbl{font-size:0.62rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:1rem;}
+.pplan{font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#CCC;margin-bottom:1rem;}
+.pcol.pop .pplan{color:rgba(255,255,255,0.45);}
+.pamt{font-size:2.75rem;font-weight:900;letter-spacing:-1.5px;color:#0A0A0A;line-height:1;}
+.pcol.pop .pamt{color:#fff;}
+.pfreq{font-size:0.72rem;color:#CCC;margin-bottom:0.875rem;}
+.pcol.pop .pfreq{color:rgba(255,255,255,0.45);}
+.pline{height:1px;background:#F0F0F0;margin:1.125rem 0;}
+.pcol.pop .pline{background:rgba(255,255,255,0.15);}
+.pdesc{font-size:0.78rem;color:#AAA;line-height:1.55;margin-bottom:1.375rem;}
+.pcol.pop .pdesc{color:rgba(255,255,255,0.55);}
+.pfeats{list-style:none;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.75rem;}
+.pfeats li{font-size:0.78rem;color:#AAA;display:flex;gap:0.4rem;align-items:flex-start;line-height:1.4;}
+.pfeats li.dim{opacity:0.35;}
+.pcol.pop .pfeats li{color:rgba(255,255,255,0.6);}
+.pcol.pop .pfeats li.dim{color:rgba(255,255,255,0.25);}
+.cky{color:#059669;font-weight:700;font-size:0.72rem;flex-shrink:0;margin-top:1px;}
+.ckn{color:#E8E8E8;font-weight:700;font-size:0.72rem;flex-shrink:0;margin-top:1px;}
+.bp{width:100%;padding:0.875rem;border-radius:8px;font-family:'Satoshi',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:opacity 0.2s;}
+.bp:hover{opacity:0.8;}
+.bp-ghost{background:transparent;border:1.5px solid #E0E0E0;color:#0A0A0A;}
+.bp-ghost:hover{border-color:#1B4FD8;color:#1B4FD8;opacity:1;}
+.bp-white{background:#fff;color:#1B4FD8;}
+.bp-blue{background:#EEF3FF;color:#1B4FD8;}
+.price-note{margin-top:1.5rem;font-size:0.75rem;color:#CCC;display:flex;align-items:center;gap:0.4rem;}
+
+/* ── S4: CALCULADORA ── */
+.s-calc{background:#EEF3FF;}
+.s-calc h2{font-size:clamp(2rem,4vw,3.75rem);font-weight:900;letter-spacing:-2.5px;line-height:1;color:#0A0A0A;max-width:540px;margin-bottom:3rem;}
+.calc-split{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.calc-form label{display:block;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#6B8AC4;margin-bottom:0.4rem;}
+.calc-form input{width:100%;padding:0.875rem 1rem;background:#fff;border:1.5px solid #D0D8F0;border-radius:8px;font-family:'Satoshi',sans-serif;font-size:1.1rem;color:#0A0A0A;outline:none;margin-bottom:1.5rem;transition:border 0.2s;}
+.calc-form input:focus{border-color:#1B4FD8;}
+.calc-hint{font-size:0.72rem;color:#6B8AC4;}
+.calc-result-box{background:#1B4FD8;border-radius:14px;padding:2rem;margin-bottom:1px;}
+.calc-result-lbl{font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:0.5rem;}
+.calc-result-n{font-size:4rem;font-weight:900;letter-spacing:-3px;color:#fff;line-height:1;}
+.calc-result-sub{font-size:0.875rem;color:rgba(255,255,255,0.45);margin-top:0.35rem;}
+.calc-rows{background:#fff;border-radius:14px;overflow:hidden;border:1.5px solid #D0D8F0;margin-top:1rem;}
+.crow{display:flex;align-items:center;justify-content:space-between;padding:0.875rem 1.25rem;border-bottom:1px solid #F0F0F0;}
+.crow:last-child{border-bottom:none;}
+.crow-l{font-size:0.82rem;color:#6B8AC4;}
+.crow-n{font-size:0.95rem;font-weight:700;color:#1B4FD8;}
+
+/* ── S5: PUBLICIDAD ── */
+.s-ads{background:#fff;}
+.s-ads-inner{display:flex;flex-direction:column;align-items:center;gap:1.5rem;width:100%;}
+.banner-wrap{width:100%;max-width:680px;}
+.ad-slide{border-radius:14px;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.25rem;padding:3rem 2.5rem;text-align:center;cursor:pointer;transition:opacity 0.5s;}
+.ad-slide.hidden{display:none;}
+.ad-dots{display:flex;gap:0.5rem;justify-content:center;}
+.ad-dot{height:8px;border-radius:100px;background:#D0D8F0;transition:all 0.35s;}
+.ad-dot.active{background:#1B4FD8;width:20px;}
+.ad-dot:not(.active){width:8px;}
+.ads-legal{font-size:0.7rem;color:#CCC;display:flex;align-items:center;gap:0.4rem;}
+.pub-badge{font-size:0.6rem;font-weight:800;letter-spacing:0.06em;border:1px solid #E0E0E0;color:#CCC;padding:0.08rem 0.35rem;border-radius:3px;}
+
+/* ── S6: FAQ ── */
+.s-faq{background:#EEF3FF;}
+.s-faq h2{font-size:clamp(2rem,4vw,3.75rem);font-weight:900;letter-spacing:-2px;line-height:1;color:#0A0A0A;margin-bottom:3rem;}
+.faq-cols{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:4rem;}
+.faq-item{border-bottom:1px solid rgba(27,79,216,0.1);margin:0;}
+.faq-q{padding:1.125rem 0;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:0.875rem;font-weight:600;color:#0A0A0A;cursor:pointer;user-select:none;transition:color 0.15s;}
+.faq-q:hover{color:#1B4FD8;}
+.faq-arr{font-size:0.72rem;color:#AAA;transition:transform 0.3s;flex-shrink:0;}
+.faq-item.open .faq-arr{transform:rotate(180deg);color:#1B4FD8;}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.35s ease;}
+.faq-item.open .faq-a{max-height:200px;}
+.faq-a p{padding-bottom:1.125rem;font-size:0.85rem;color:#6B8AC4;line-height:1.75;}
+
+/* CTA block al final del FAQ */
+.cta-block{background:#1B4FD8;border-radius:16px;padding:3rem 3.5rem;display:flex;align-items:center;justify-content:space-between;gap:2.5rem;flex-wrap:wrap;}
+.cta-block h3{font-size:clamp(1.5rem,3vw,2.25rem);font-weight:900;letter-spacing:-1px;color:#fff;line-height:1.1;max-width:460px;}
+.cta-block p{font-size:0.875rem;color:rgba(255,255,255,0.55);margin-top:0.5rem;max-width:400px;}
+.btn-cta{display:inline-flex;align-items:center;gap:0.5rem;background:#fff;color:#1B4FD8;font-family:'Satoshi',sans-serif;font-size:0.95rem;font-weight:800;padding:0.9rem 2rem;border-radius:8px;border:none;cursor:pointer;text-decoration:none;transition:opacity 0.2s;white-space:nowrap;}
+.btn-cta:hover{opacity:0.85;}
+
+/* FOOTER */
+footer{background:#F8F9FC;border-top:1px solid #EBEBEB;padding:1.75rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;scroll-snap-align:none;}
+.footer-links{display:flex;gap:2rem;}
+.footer-links a{font-size:0.75rem;color:#CCC;text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:#1B4FD8;}
+.footer-copy{font-size:0.75rem;color:#CCC;}
+
+/* MODALS */
+.modal-bg{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.35);backdrop-filter:blur(8px);align-items:center;justify-content:center;}
+.modal-bg.open{display:flex;}
+.modal{background:#fff;border-radius:14px;padding:2rem;max-width:400px;width:90%;position:relative;box-shadow:0 24px 64px rgba(27,79,216,0.12);animation:fu 0.25s ease;}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.modal-x{position:absolute;top:1rem;right:1rem;background:#F5F5F5;border:none;width:26px;height:26px;border-radius:50%;font-size:0.78rem;color:#666;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.modal-lbl{font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#1B4FD8;margin-bottom:0.4rem;}
+.modal h3{font-size:1.375rem;font-weight:800;letter-spacing:-0.5px;color:#0A0A0A;margin-bottom:0.4rem;}
+.modal-p{font-size:0.82rem;color:#999;line-height:1.6;margin-bottom:1.25rem;}
+.mcomp{display:grid;grid-template-columns:1fr 1fr;border:1px solid #EBEBEB;border-radius:8px;overflow:hidden;margin-bottom:1.25rem;}
+.mc{padding:1rem;}
+.mc.r{background:#EEF3FF;}
+.mc-lbl{font-size:0.62rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#CCC;margin-bottom:0.625rem;}
+.mc.r .mc-lbl{color:#1B4FD8;}
+.mc-f{font-size:0.78rem;color:#999;display:flex;gap:0.35rem;margin-bottom:0.3rem;}
+.mc-f .y{color:#059669;font-weight:700;}
+.mc-f .n{color:#E8E8E8;font-weight:700;}
+.mpbox{background:#F8F9FC;border-radius:8px;padding:1rem;margin-bottom:1rem;}
+.mplbl{font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#CCC;margin-bottom:0.2rem;}
+.mpn{font-size:2.25rem;font-weight:900;letter-spacing:-1px;color:#0A0A0A;line-height:1;}
+.mpnote{font-size:0.7rem;color:#CCC;margin-top:0.15rem;}
+.btn-mc{width:100%;padding:0.875rem;border-radius:7px;font-family:'Satoshi',sans-serif;font-size:0.9rem;font-weight:700;background:#1B4FD8;color:#fff;border:none;cursor:pointer;transition:opacity 0.2s;}
+.btn-mc:hover{opacity:0.85;}
+.mfine{font-size:0.7rem;color:#CCC;text-align:center;margin-top:0.75rem;}
+
+/* SCAN ANIM */
+@keyframes scan{0%{transform:translateY(-10px);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(96px);opacity:0}}
+.scan-line{animation:scan 2s linear infinite;}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  html{scroll-snap-type:none;}
+  nav ul{display:none;}
+  .screen{padding:5rem 1.5rem;}
+  .hero-split{grid-template-columns:1fr;gap:3rem;}
+  .calc-split{grid-template-columns:1fr;gap:2.5rem;}
+  .pgrid{grid-template-columns:1fr;gap:1rem;}
+  .pcol.pop{transform:none;}
+  .faq-cols{grid-template-columns:1fr;}
+  footer{flex-direction:column;text-align:center;}
+  .footer-links{justify-content:center;}
+}
+@media(max-width:560px){
+  .hero-copy h1{letter-spacing:-1px;font-size:2.25rem;}
+  .s-feat h2,.s-price h2,.s-calc h2,.s-faq h2{letter-spacing:-1.5px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" style="display:flex;align-items:center;gap:0.625rem;text-decoration:none;">
+    <svg width="30" height="30" viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="navbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1338A8"/><stop offset="100%" stop-color="#1B4FD8"/></linearGradient>
+        <linearGradient id="navscan" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="white" stop-opacity="0"/><stop offset="50%" stop-color="white" stop-opacity="0.7"/><stop offset="100%" stop-color="white" stop-opacity="0"/></linearGradient>
+        <clipPath id="navclip"><rect x="92" y="62" width="148" height="182" rx="14"/></clipPath>
+      </defs>
+      <rect width="340" height="340" rx="72" fill="url(#navbg)"/>
+      <g stroke="white" stroke-opacity="0.07" stroke-width="1"><line x1="0" y1="170" x2="340" y2="170"/><line x1="170" y1="0" x2="170" y2="340"/></g>
+      <rect x="88" y="68" width="148" height="182" rx="16" fill="white" fill-opacity="0.18"/>
+      <rect x="92" y="62" width="148" height="182" rx="14" fill="white"/>
+      <polygon points="200,62 240,102 200,102" fill="#D8E3F8"/>
+      <line x1="200" y1="62" x2="200" y2="102" stroke="#C4D4F4" stroke-width="2"/>
+      <rect x="110" y="118" width="68" height="7" rx="3.5" fill="#C4D0EE"/>
+      <rect x="110" y="134" width="52" height="7" rx="3.5" fill="#C4D0EE"/>
+      <rect x="110" y="150" width="62" height="7" rx="3.5" fill="#C4D0EE"/>
+      <rect x="110" y="166" width="44" height="7" rx="3.5" fill="#C4D0EE"/>
+      <rect x="92" y="62" width="148" height="12" fill="url(#navscan)" clip-path="url(#navclip)" class="scan-line"/>
+      <circle cx="218" cy="214" r="46" fill="#1B4FD8" stroke="white" stroke-width="7"/>
+      <circle cx="212" cy="208" r="17" fill="none" stroke="white" stroke-width="6"/>
+      <line x1="224" y1="220" x2="236" y2="232" stroke="white" stroke-width="6" stroke-linecap="round"/>
+      <polyline points="206,208 211,213 221,202" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span style="font-size:1rem;font-weight:800;color:#0A0A0A;letter-spacing:-0.3px;">Expensas<span style="color:#1B4FD8;">Claras</span></span>
+  </a>
+  <ul>
+    <li><a href="#s-feat">Funcionalidades</a></li>
+    <li><a href="#s-price">Precios</a></li>
+    <li><a href="#s-calc">Calculadora</a></li>
+    <li><a href="#s-faq">FAQ</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:0.625rem;">
+    <a href="auth-expensasclaras.html" style="font-family:'Satoshi',sans-serif;font-size:0.82rem;font-weight:600;color:var(--ink3);text-decoration:none;padding:0.45rem 0.875rem;border-radius:6px;border:1px solid var(--border);transition:all 0.2s;" onmouseover="this.style.borderColor='#0A0A0A';this.style.color='#0A0A0A'" onmouseout="this.style.borderColor='#E5E7EB';this.style.color='#6B7280'">Iniciar sesión</a>
+    <a href="auth-expensasclaras.html" style="font-family:'Satoshi',sans-serif;font-size:0.82rem;font-weight:700;color:white;text-decoration:none;padding:0.45rem 1rem;border-radius:6px;background:var(--ink);transition:opacity 0.2s;" onmouseover="this.style.opacity='0.75'" onmouseout="this.style.opacity='1'">Crear cuenta</a>
+    <button class="nav-cta" onclick="document.getElementById('s-hero').scrollIntoView({behavior:'smooth'})">Analizar gratis</button>
+  </div>
+</nav>
+
+<!-- S1: HERO + WIDGET -->
+<section class="screen s-hero" id="s-hero">
+  <div class="si">
+    <div class="hero-split">
+      <!-- Copy -->
+      <div class="hero-copy" style="text-align:center;">
+        <h1 style="text-align:center;margin-left:auto;margin-right:auto;">¿Tu consorcio<br>te cobra<br><b>lo que corresponde?</b></h1>
+        <p style="text-align:center;margin:0 auto 0;">Subí las liquidaciones de tu edificio y en menos de un minuto sabés si tu administrador está haciendo bien su trabajo.</p>
+      </div>
+      <!-- Widget -->
+      <div>
+        <div class="wcard">
+          <div class="analyzing-ov" id="analyzingOv">
+            <div class="spin"></div>
+            <div class="step-list">
+              <div class="step-row" id="s1"><div class="step-ico">1</div>Leyendo liquidaciones</div>
+              <div class="step-row" id="s2"><div class="step-ico">2</div>Detectando irregularidades</div>
+              <div class="step-row" id="s3"><div class="step-ico">3</div>Calculando saldos netos</div>
+              <div class="step-row" id="s4"><div class="step-ico">4</div>Verificando matrícula</div>
+              <div class="step-row" id="s5"><div class="step-ico">5</div>Generando informe</div>
+            </div>
+          </div>
+          <div id="uploadState">
+            <div class="wbar">
+              <div class="wdots"><div class="wdot" style="background:#FF5F57"></div><div class="wdot" style="background:#FFBD2E"></div><div class="wdot" style="background:#28CA41"></div></div>
+              <span style="font-size:0.72rem;color:#AAA;font-weight:500;">ExpensasClaras · Análisis</span>
+              <span style="font-size:0.7rem;color:#CCC;">🔒 Sin almacenamiento</span>
+            </div>
+            <div class="wbody">
+              <div class="dropzone" id="dropZone">
+                <input type="file" id="fileInput" multiple accept=".pdf">
+                <div class="dz-icon">📋</div>
+                <h4>Arrastrá tus PDFs acá</h4>
+                <p>o hacé clic para seleccionarlos</p>
+                <div class="dz-note">📅 Gratis: hasta 3 meses · Para mejor precisión subí meses consecutivos</div>
+                <div class="dz-tags"><span class="dz-tag">Mis Expensas</span><span class="dz-tag">Octopus</span><span class="dz-tag">Consorcio Abierto</span><span class="dz-tag">+otros</span></div>
+              </div>
+              <div class="files-list" id="filesList"></div>
+              <div class="email-wrap" id="emailWrap">
+                <input type="email" id="userEmail" placeholder="tu@email.com — para recibir el informe">
+                <div class="email-note">🔒 Sin spam. Podés darte de baja cuando quieras.</div>
+              </div>
+              <button class="btn-analyze" id="btnAnalyze" disabled>Analizar expensas</button>
+            </div>
+          </div>
+          <div class="results-panel" id="resultsPanel">
+            <div class="res-header">
+              <div class="score-lock">
+                <div class="score-lock-ico">🔒</div>
+                <div><div class="score-lock-t">Score disponible en Plan Pro</div><div class="score-lock-p">Puntaje 0–100 con 10 criterios.</div><div class="score-lock-pill" onclick="showUpgrade()">Desbloqueá con Plan Pro</div></div>
+              </div>
+              <div class="res-months"><div class="res-months-n">3</div><div class="res-months-l">meses analizados</div></div>
+            </div>
+            <div class="res-alerts">
+              <div class="res-a r"><div class="res-dot"></div>Movimientos bancarios = $0 en todos los meses. Posible incumplimiento Ley 941.</div>
+              <div class="res-a r"><div class="res-dot"></div>Unidad 8-B con saldo neto $2.117 sin gestión documentada de cobro.</div>
+              <div class="res-a a"><div class="res-dot"></div>Gastos bancarios $178.000/mes sin desglose de comisiones.</div>
+              <div class="res-a g"><div class="res-dot"></div>Seguro cubrió el reemplazo de vidrio de $1.1M. Bien gestionado.</div>
+            </div>
+            <div class="res-note"><span>ℹ</span><span>Saldos = saldo neto al cierre, después de descontar los pagos del período.</span></div>
+            <div class="res-footer">
+              <button class="btn-upgrade" onclick="showUpgrade()">↓ Informe completo — Plan Pro</button>
+              <button class="btn-reset" id="btnReset">Nuevo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S2: FEATURES -->
+<section class="screen s-feat" id="s-feat">
+  <div class="si">
+    <div class="eyebrow">Funcionalidades</div>
+    <h2>Todo lo que tu contador tarda días en hacer.</h2>
+    <div class="feat-rows">
+      <div class="feat-row"><div class="feat-ico">🔍</div><div class="feat-body"><div class="feat-title">Detección de irregularidades</div><div class="feat-desc">Facturas duplicadas, CUIT inconsistentes, pagos sin respaldo y posibles cobros en exceso cruzando datos entre períodos.</div></div><span class="feat-badge b-free">Gratis</span></div>
+      <div class="feat-row"><div class="feat-ico">🪪</div><div class="feat-body"><div class="feat-title">Verificación de matrícula</div><div class="feat-desc">RPA activo, sin sanciones y seguro de caución vigente. Tu protección legal empieza acá.</div></div><span class="feat-badge b-free">Gratis</span></div>
+      <div class="feat-row"><div class="feat-ico">🏅</div><div class="feat-body"><div class="feat-title">Score del administrador</div><div class="feat-desc">Puntaje de 0 a 100 basado en 10 criterios objetivos. Transparente y con desglose completo.</div></div><span class="feat-badge b-pro">Pro</span></div>
+      <div class="feat-row"><div class="feat-ico">⚖️</div><div class="feat-body"><div class="feat-title">Ordinarias vs Extraordinarias</div><div class="feat-desc">Reclasificamos cada gasto. Fundamental si alquilás tu depto — el inquilino solo paga ordinarias.</div></div><span class="feat-badge b-pro">Pro</span></div>
+      <div class="feat-row"><div class="feat-ico">📈</div><div class="feat-body"><div class="feat-title">Proyección con tarifas reales</div><div class="feat-desc">EDENOR, METROGAS, AYSA y SUTERH actualizados. Cuánto vas a pagar los próximos 6 meses.</div></div><span class="feat-badge b-pro">Pro</span></div>
+      <div class="feat-row"><div class="feat-ico">✍️</div><div class="feat-body"><div class="feat-title">Dictamen Contable</div><div class="feat-desc">Revisión y firma de contador matriculado. Validez legal ante asamblea, GCBA y sede judicial.</div></div><span class="feat-badge b-dict">Dictamen</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- S3: PRICING -->
+<section class="screen s-price" id="s-price">
+  <div class="si">
+    <div class="eyebrow">Precios</div>
+    <h2>Simple y transparente.</h2>
+    <div class="price-sub">💱 Precios en pesos · Ref. $1.435/USD · Se actualizan mensualmente</div>
+    <div class="pgrid">
+      <div class="pcol">
+        <div class="pplan">Gratuito</div>
+        <div class="pamt">$0</div>
+        <div class="pfreq">para siempre</div>
+        <div class="pline"></div>
+        <div class="pdesc">Primera revisión sin compromiso. Hasta 3 meses consecutivos.</div>
+        <ul class="pfeats">
+          <li><span class="cky">✓</span>Hasta 3 meses consecutivos</li>
+          <li><span class="cky">✓</span>Top 3 alertas principales</li>
+          <li><span class="cky">✓</span>Verificación básica de matrícula</li>
+          <li><span class="cky">✓</span>Calculadora de impacto</li>
+          <li class="dim"><span class="ckn">✕</span>Score del administrador</li>
+          <li class="dim"><span class="ckn">✕</span>PDF + Excel</li>
+          <li class="dim"><span class="ckn">✕</span>Proyección de expensas</li>
+        </ul>
+        <button class="bp bp-ghost" onclick="document.getElementById('s-hero').scrollIntoView({behavior:'smooth'})">Empezar gratis</button>
+      </div>
+      <div class="pcol pop">
+        <div class="pop-lbl">✦ Más popular</div>
+        <div class="pplan">Pro · Mensual</div>
+        <div class="pamt">$29.999</div>
+        <div class="pfreq">por mes · cancelá cuando quieras</div>
+        <div class="pline"></div>
+        <div class="pdesc">Análisis completo + seguimiento mensual automático.</div>
+        <ul class="pfeats">
+          <li><span class="cky">✓</span>De 4 a 24 meses de análisis</li>
+          <li><span class="cky">✓</span>Alertas ilimitadas</li>
+          <li><span class="cky">✓</span>Score del administrador</li>
+          <li><span class="cky">✓</span>PDF + Excel descargable</li>
+          <li><span class="cky">✓</span>Análisis mensual automático</li>
+          <li><span class="cky">✓</span>Proyección 6 meses real</li>
+          <li><span class="cky">✓</span>Separación Ord./Ext.</li>
+          <li><span class="cky">✓</span>Alerta por email</li>
+        </ul>
+        <button class="bp bp-white" onclick="openCheckout()">Suscribirse al Plan Pro</button>
+      </div>
+      <div class="pcol">
+        <div class="pplan">Dictamen Contable</div>
+        <div class="pamt">$141.999</div>
+        <div class="pfreq">por dictamen · 5 días hábiles</div>
+        <div class="pline"></div>
+        <div class="pdesc">IA + contador matriculado. Validez legal total.</div>
+        <ul class="pfeats">
+          <li><span class="cky">✓</span><strong>Requiere 12 meses de liq.</strong></li>
+          <li><span class="cky">✓</span>Todo lo del Plan Pro</li>
+          <li><span class="cky">✓</span>Revisión por contador</li>
+          <li><span class="cky">✓</span>Dictamen firmado</li>
+          <li><span class="cky">✓</span>Válido ante justicia</li>
+          <li><span class="cky">✓</span>Proyección 12 meses</li>
+          <li><span class="cky">✓</span>Detección fraude avanzada</li>
+        </ul>
+        <button class="bp bp-blue" onclick="openCheckoutDictamen()">Solicitar dictamen</button>
+      </div>
+    </div>
+    <div class="price-note">🔒 Pago seguro · PDFs no almacenados · Ley 25.326</div>
+  </div>
+</section>
+
+<!-- S4: CALCULADORA -->
+<section class="screen s-calc" id="s-calc">
+  <div class="si">
+    <div class="eyebrow">Calculadora gratuita</div>
+    <h2>¿Cuánto impacta un nuevo servicio en tu expensa?</h2>
+    <div class="calc-split">
+      <div class="calc-form">
+        <label>Costo mensual del servicio ($)</label>
+        <input type="number" id="calcCosto" value="900000" oninput="calcular()">
+        <label>Coeficiente de tu unidad (%)</label>
+        <input type="number" id="calcCoef" value="3.5092" step="0.0001" oninput="calcular()">
+        <div class="calc-hint">Tu coeficiente está en la liquidación, columna "%".</div>
+      </div>
+      <div>
+        <div class="calc-result-box">
+          <div class="calc-result-lbl">Tu impacto mensual</div>
+          <div class="calc-result-n" id="calcResult">$31.583</div>
+          <div class="calc-result-sub" id="calcAnual">$379.000 / año adicionales</div>
+        </div>
+        <div class="calc-rows">
+          <div class="crow"><span class="crow-l">Unidad tipo A (3.509%)</span><span class="crow-n" id="calcA">$31.583</span></div>
+          <div class="crow"><span class="crow-l">Unidad tipo B (5.825%)</span><span class="crow-n" id="calcB">$52.425</span></div>
+          <div class="crow"><span class="crow-l">Unidad tipo C (4.662%)</span><span class="crow-n" id="calcC">$41.958</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S5: PUBLICIDAD -->
+<section id="s-ads" style="padding:3rem 3rem;background:#fff;border-top:1px solid #EBEBEB;">
+  <div class="si">
+    <div class="s-ads-inner">
+      <div class="banner-wrap">
+        <a id="bannerLink" href="#" target="_blank" rel="noopener sponsored" onclick="return confirm('Estás por visitar el sitio del anunciante. ExpensasClaras no es responsable por sus servicios.')">
+          <div class="ad-slide" id="ad0" style="background:linear-gradient(135deg,#22C55E,#16A34A);">
+            <div style="font-size:2.5rem;">🧹</div>
+            <div style="font-size:1.75rem;font-weight:900;color:#fff;letter-spacing:-0.5px;">LimpioMax</div>
+            <div style="font-size:1rem;color:rgba(255,255,255,0.85);max-width:400px;line-height:1.5;">Limpieza profesional de consorcios en CABA y GBA. Presupuesto sin cargo en 24hs.</div>
+            <div style="background:white;color:#16A34A;font-weight:800;font-size:0.9rem;padding:0.75rem 2rem;border-radius:100px;">Pedir presupuesto →</div>
+          </div>
+          <div class="ad-slide hidden" id="ad1" style="background:linear-gradient(135deg,#1B4FD8,#1440B8);">
+            <div style="font-size:2.5rem;">🛡️</div>
+            <div style="font-size:1.75rem;font-weight:900;color:#fff;letter-spacing:-0.5px;">SegurEdificio</div>
+            <div style="font-size:1rem;color:rgba(255,255,255,0.85);max-width:400px;line-height:1.5;">Seguridad privada 24hs para edificios. Vigilancia, monitoreo y control de acceso inteligente.</div>
+            <div style="background:white;color:#1B4FD8;font-weight:800;font-size:0.9rem;padding:0.75rem 2rem;border-radius:100px;">Cotizá online →</div>
+          </div>
+          <div class="ad-slide hidden" id="ad2" style="background:linear-gradient(135deg,#F59E0B,#D97706);">
+            <div style="font-size:2.5rem;">🔧</div>
+            <div style="font-size:1.75rem;font-weight:900;color:#fff;letter-spacing:-0.5px;">TecniConsorcio</div>
+            <div style="font-size:1rem;color:rgba(255,255,255,0.85);max-width:400px;line-height:1.5;">Plomería, electricidad y mantenimiento general. Guardias de fin de semana en CABA.</div>
+            <div style="background:white;color:#D97706;font-weight:800;font-size:0.9rem;padding:0.75rem 2rem;border-radius:100px;">Ver servicios →</div>
+          </div>
+        </a>
+        <div class="ad-dots" style="margin-top:1rem;">
+          <div class="ad-dot active" id="dot0"></div>
+          <div class="ad-dot" id="dot1"></div>
+          <div class="ad-dot" id="dot2"></div>
+        </div>
+      </div>
+      <div class="ads-legal">
+        <span class="pub-badge">PUBLICIDAD</span>
+        Los anunciantes son independientes de los análisis de ExpensasClaras.
+        <a href="politicas-expensasclaras.html" style="color:#1B4FD8;text-decoration:underline;">Ver términos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S6: FAQ + CTA -->
+<section class="screen s-faq" id="s-faq">
+  <div class="si">
+    <div class="eyebrow">FAQ</div>
+    <h2>Lo que siempre<br>nos preguntan</h2>
+    <div class="faq-cols">
+      <div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">¿Mis datos están seguros?<span class="faq-arr">▾</span></div><div class="faq-a"><p>Los PDFs se procesan en el momento y no se almacenan. Encriptación de extremo a extremo. Tus datos están protegidos por la Ley 25.326.</p></div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">¿Con qué formatos funciona?<span class="faq-arr">▾</span></div><div class="faq-a"><p>Compatible con Mis Expensas (GCBA), Octopus, Consorcio Abierto, Redconar y cualquier PDF.</p></div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">¿Por qué necesito 3 meses consecutivos?<span class="faq-arr">▾</span></div><div class="faq-a"><p>Con un solo mes no detectamos patrones. Tres meses permiten detectar morosos recurrentes, cobros en cuotas irregulares y aumentos sin justificación.</p></div></div>
+      </div>
+      <div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">¿Cómo verifican la matrícula?<span class="faq-arr">▾</span></div><div class="faq-a"><p>Cruzamos el RPA declarado en las liquidaciones con el Registro Público de Administradores del GCBA. Sin matrícula activa, ejerce ilegalmente.</p></div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">¿Qué es el Dictamen Contable?<span class="faq-arr">▾</span></div><div class="faq-a"><p>Un informe revisado y firmado por un contador matriculado. Validez legal ante asambleas, GCBA y sede judicial. Requiere 12 meses de liquidaciones.</p></div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">¿Los resultados son exactos?<span class="faq-arr">▾</span></div><div class="faq-a"><p>Son altamente precisos pero la IA puede tener limitaciones. Siempre recomendamos corroborar con un contador antes de tomar acciones legales.</p></div></div>
+      </div>
+    </div>
+    <!-- CTA FINAL -->
+    <div class="cta-block">
+      <div>
+        <h3>Empezá gratis.<br>Sin registro.</h3>
+        <p>Subí tus liquidaciones y en 60 segundos sabés si tu consorcio te está cobrando lo que corresponde.</p>
+      </div>
+      <a href="#s-hero" class="btn-cta" onclick="document.getElementById('s-hero').scrollIntoView({behavior:'smooth'});return false;">Empezar gratis →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <svg width="20" height="20" viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg">
+      <rect width="340" height="340" rx="72" fill="#1B4FD8"/>
+      <rect x="92" y="62" width="148" height="182" rx="14" fill="white"/>
+      <polygon points="200,62 240,102 200,102" fill="#D8E3F8"/>
+      <rect x="110" y="118" width="68" height="7" rx="3.5" fill="#C4D0EE"/>
+      <rect x="110" y="134" width="52" height="7" rx="3.5" fill="#C4D0EE"/>
+      <rect x="110" y="150" width="62" height="7" rx="3.5" fill="#C4D0EE"/>
+      <circle cx="218" cy="214" r="46" fill="#1B4FD8" stroke="white" stroke-width="7"/>
+      <circle cx="212" cy="208" r="17" fill="none" stroke="white" stroke-width="6"/>
+      <line x1="224" y1="220" x2="236" y2="232" stroke="white" stroke-width="6" stroke-linecap="round"/>
+      <polyline points="206,208 211,213 221,202" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span style="font-size:0.875rem;font-weight:700;color:#AAA;">Expensas<span style="color:#1B4FD8;">Claras</span></span>
+  </div>
+  <span class="footer-copy">© 2026 · expensasclaras.com.ar · Buenos Aires</span>
+  <div class="footer-links">
+    <a href="politicas-expensasclaras.html">Privacidad</a>
+    <a href="politicas-expensasclaras.html">Términos</a>
+    <a href="mailto:hola@expensasclaras.com.ar">Contacto</a>
+  </div>
+</footer>
+
+<!-- MODAL PRO — 4to archivo -->
+<div class="modal-bg" id="proUpgradeModal">
+  <div class="modal">
+    <button class="modal-x" onclick="document.getElementById('proUpgradeModal').classList.remove('open')">✕</button>
+    <div class="modal-lbl">Plan Pro</div>
+    <h3>Querés analizar más meses</h3>
+    <p class="modal-p">El plan gratuito permite hasta <strong>3 meses consecutivos</strong>. El plan Pro acepta desde 4 hasta 24 meses de liquidaciones.</p>
+    <div class="mcomp">
+      <div class="mc"><div class="mc-lbl">Gratis</div><div class="mc-f"><span class="y">✓</span> 3 meses</div><div class="mc-f"><span class="y">✓</span> 3 alertas</div><div class="mc-f"><span class="n">✕</span> Score admin</div><div class="mc-f"><span class="n">✕</span> PDF + Excel</div></div>
+      <div class="mc r"><div class="mc-lbl">Pro ✦</div><div class="mc-f"><span class="y">✓</span><strong> 4 a 24 meses</strong></div><div class="mc-f"><span class="y">✓</span> Alertas ilimitadas</div><div class="mc-f"><span class="y">✓</span> Score admin</div><div class="mc-f"><span class="y">✓</span> PDF + Excel</div></div>
+    </div>
+    <div class="mpbox"><div class="mplbl">Precio Plan Pro</div><div class="mpn">$29.999</div><div class="mpnote">Por mes · Cancelá cuando quieras</div></div>
+    <button class="btn-mc" onclick="openCheckout()">Suscribirse al Plan Pro — $29.999/mes</button>
+    <div class="mfine">🔒 Pago seguro · Tus datos no se almacenan</div>
+  </div>
+</div>
+
+<!-- MODAL UPGRADE -->
+<div class="modal-bg" id="upgradeModal">
+  <div class="modal">
+    <button class="modal-x" onclick="document.getElementById('upgradeModal').classList.remove('open')">✕</button>
+    <div class="modal-lbl">Plan Pro</div>
+    <h3>Informe completo + seguimiento</h3>
+    <p class="modal-p">Score del administrador, alertas ilimitadas, PDF + Excel, proyección 6 meses y análisis mensual automático.</p>
+    <div class="mpbox"><div class="mplbl">Precio Plan Pro</div><div class="mpn">$29.999</div><div class="mpnote">Por mes · Cancelá cuando quieras</div></div>
+    <button class="btn-mc" onclick="openCheckout()">Suscribirse al Plan Pro — $29.999/mes</button>
+    <div class="mfine">🔒 Pago seguro · Tus datos no se almacenan</div>
+  </div>
+</div>
+
+<!-- MODAL CHECKOUT -->
+<div class="modal-bg" id="checkoutModal">
+  <div class="modal" style="max-width:440px;">
+    <button class="modal-x" onclick="closeCheckout()">✕</button>
+
+    <!-- STEP 1: DATOS -->
+    <div id="checkoutStep1">
+      <div class="modal-lbl" id="chk-plan-nombre">Plan Pro · Mensual</div>
+      <h3 style="margin-bottom:0.25rem;">Un paso más para empezar</h3>
+      <p style="font-size:0.82rem;color:#999;margin-bottom:1.5rem;line-height:1.6;">Completá tus datos para continuar al pago. Los usamos para enviarte el informe y mantenerte al día.</p>
+
+      <div style="display:flex;flex-direction:column;gap:0.875rem;margin-bottom:1.375rem;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+          <div>
+            <label style="display:block;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#AAA;margin-bottom:0.35rem;">Nombre <span style="color:#DC2626;">*</span></label>
+            <input id="chk-nombre" type="text" placeholder="Juan" style="width:100%;padding:0.75rem 0.875rem;border:1.5px solid #EBEBEB;border-radius:8px;font-family:'Satoshi',sans-serif;font-size:0.875rem;color:#0A0A0A;outline:none;transition:border 0.2s;" onfocus="this.style.borderColor='#1B4FD8'" onblur="this.style.borderColor='#EBEBEB'">
+          </div>
+          <div>
+            <label style="display:block;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#AAA;margin-bottom:0.35rem;">Apellido <span style="color:#DC2626;">*</span></label>
+            <input id="chk-apellido" type="text" placeholder="García" style="width:100%;padding:0.75rem 0.875rem;border:1.5px solid #EBEBEB;border-radius:8px;font-family:'Satoshi',sans-serif;font-size:0.875rem;color:#0A0A0A;outline:none;transition:border 0.2s;" onfocus="this.style.borderColor='#1B4FD8'" onblur="this.style.borderColor='#EBEBEB'">
+          </div>
+        </div>
+        <div>
+          <label style="display:block;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#AAA;margin-bottom:0.35rem;">Email <span style="color:#DC2626;">*</span></label>
+          <input id="chk-email" type="email" placeholder="juan@email.com" style="width:100%;padding:0.75rem 0.875rem;border:1.5px solid #EBEBEB;border-radius:8px;font-family:'Satoshi',sans-serif;font-size:0.875rem;color:#0A0A0A;outline:none;transition:border 0.2s;" onfocus="this.style.borderColor='#1B4FD8'" onblur="this.style.borderColor='#EBEBEB'">
+        </div>
+        <div>
+          <label style="display:block;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#AAA;margin-bottom:0.35rem;">Teléfono <span style="color:#999;font-weight:400;text-transform:none;letter-spacing:0;">(opcional)</span></label>
+          <input id="chk-tel" type="tel" placeholder="+54 11 1234-5678" style="width:100%;padding:0.75rem 0.875rem;border:1.5px solid #EBEBEB;border-radius:8px;font-family:'Satoshi',sans-serif;font-size:0.875rem;color:#0A0A0A;outline:none;transition:border 0.2s;" onfocus="this.style.borderColor='#1B4FD8'" onblur="this.style.borderColor='#EBEBEB'">
+        </div>
+      </div>
+
+      <!-- Resumen precio -->
+      <input type="hidden" id="chk-plan-id" value="pro">
+      <input type="hidden" id="chk-plan-mp" value="TU_PLAN_ID">
+      <input type="hidden" id="chk-plan-num" value="29999">
+      <div style="background:#EEF3FF;border-radius:10px;padding:0.875rem 1.125rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-size:0.72rem;font-weight:700;color:#6B8AC4;text-transform:uppercase;letter-spacing:0.07em;" id="chk-plan-nombre-2">Plan Pro · Mensual</div>
+          <div style="font-size:0.78rem;color:#6B8AC4;margin-top:0.1rem;" id="chk-plan-freq">Cancelá cuando quieras</div>
+        </div>
+        <div style="font-size:1.5rem;font-weight:900;letter-spacing:-1px;color:#1B4FD8;" id="chk-plan-precio">$29.999</div>
+      </div>
+
+      <!-- T&C checkbox -->
+      <div style="display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:1.125rem;">
+        <input type="checkbox" id="chk-tnc" style="width:16px;height:16px;margin-top:2px;accent-color:#1B4FD8;cursor:pointer;flex-shrink:0;">
+        <label for="chk-tnc" style="font-size:0.78rem;color:#666;line-height:1.5;cursor:pointer;">
+          Acepto los <a href="#" onclick="openTnC(event)" style="color:#1B4FD8;text-decoration:underline;font-weight:600;">Términos y Condiciones</a> y la <a href="politicas-expensasclaras.html" target="_blank" style="color:#1B4FD8;text-decoration:underline;font-weight:600;">Política de Privacidad</a> de ExpensasClaras. <span style="color:#DC2626;">*</span>
+        </label>
+      </div>
+
+      <div id="chk-error" style="display:none;font-size:0.78rem;color:#DC2626;background:#FEF2F2;padding:0.625rem 0.875rem;border-radius:7px;margin-bottom:1rem;"></div>
+
+      <button onclick="submitCheckout()" style="width:100%;padding:0.9rem;border-radius:8px;font-family:'Satoshi',sans-serif;font-size:0.9rem;font-weight:800;background:#1B4FD8;color:#fff;border:none;cursor:pointer;transition:opacity 0.2s;display:flex;align-items:center;justify-content:center;gap:0.5rem;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+        Ir al pago → MercadoPago
+      </button>
+      <p style="font-size:0.7rem;color:#CCC;text-align:center;margin-top:0.75rem;display:flex;align-items:center;justify-content:center;gap:0.3rem;">🔒 Tus datos quedan guardados aunque abandones el pago</p>
+    </div>
+
+    <!-- STEP 2: REDIRIGIENDO -->
+    <div id="checkoutStep2" style="display:none;text-align:center;padding:1rem 0;">
+      <div style="width:52px;height:52px;border:3px solid #EEF3FF;border-top-color:#1B4FD8;border-radius:50%;animation:spin 0.75s linear infinite;margin:0 auto 1.5rem;"></div>
+      <h3 style="margin-bottom:0.5rem;">Redirigiendo a MercadoPago</h3>
+      <p style="font-size:0.85rem;color:#999;line-height:1.6;">
+        Tus datos quedaron guardados.<br>
+        <span id="confirm-email-msg"></span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>// TÉRMINOS Y CONDICIONES
+function openTnC(e){
+  if(e) e.preventDefault();
+  document.getElementById('tncModal').classList.add('open');
+}
+function closeTnC(){
+  document.getElementById('tncModal').classList.remove('open');
+}
+function acceptTnC(){
+  document.getElementById('chk-tnc').checked = true;
+  closeTnC();
+}
+
+
+
+// UPLOAD
+const fi=document.getElementById('fileInput'),fl=document.getElementById('filesList'),ba=document.getElementById('btnAnalyze'),dz=document.getElementById('dropZone');
+let files=[];
+fi.addEventListener('change',e=>add([...e.target.files]));
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('over');});
+dz.addEventListener('dragleave',()=>dz.classList.remove('over'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('over');add([...e.dataTransfer.files].filter(f=>f.type==='application/pdf'));});
+function add(nf){
+  let blocked=false;
+  nf.forEach(f=>{if(files.find(x=>x.name===f.name))return;if(files.length>=3){blocked=true;return;}files.push(f);});
+  if(blocked)document.getElementById('proUpgradeModal').classList.add('open');
+  render();
+}
+function render(){
+  fl.innerHTML='';
+  files.forEach((f,i)=>{const r=document.createElement('div');r.className='file-row';r.innerHTML=`<span class="fr-name">📄 ${f.name}</span><span class="fr-ok">✓</span><button class="fr-rm" onclick="removeFile(${i})">✕</button>`;fl.appendChild(r);});
+  const has=files.length>0;
+  document.getElementById('emailWrap').style.display=has?'block':'none';
+  ba.disabled=!has||!(document.getElementById('userEmail').value||'').includes('@');
+}
+function removeFile(i){files.splice(i,1);render();}
+document.getElementById('userEmail').addEventListener('input',()=>{ba.disabled=files.length===0||!document.getElementById('userEmail').value.includes('@');});
+ba.addEventListener('click',startAnalysis);
+function startAnalysis(){
+  document.getElementById('analyzingOv').classList.add('active');
+  const ids=['s1','s2','s3','s4','s5'];let i=0;
+  const iv=setInterval(()=>{
+    if(i>0){const p=document.getElementById(ids[i-1]);p.className='step-row done';p.querySelector('.step-ico').textContent='✓';}
+    if(i<ids.length){document.getElementById(ids[i]).className='step-row active';i++;}
+    else{clearInterval(iv);setTimeout(()=>{document.getElementById('analyzingOv').classList.remove('active');document.getElementById('uploadState').style.display='none';document.getElementById('resultsPanel').classList.add('active');},500);}
+  },750);
+}
+document.getElementById('btnReset').addEventListener('click',()=>{
+  files=[];render();
+  document.getElementById('uploadState').style.display='block';
+  document.getElementById('resultsPanel').classList.remove('active');
+  ['s1','s2','s3','s4','s5'].forEach((id,i)=>{const el=document.getElementById(id);el.className='step-row';el.querySelector('.step-ico').textContent=i+1;});
+  document.getElementById('analyzingOv').classList.remove('active');
+});
+
+// FAQ
+function toggleFaq(el){const item=el.closest('.faq-item');const open=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!open)item.classList.add('open');}
+
+// MODALS
+function showUpgrade(){document.getElementById('upgradeModal').classList.add('open');}
+document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');}));
+
+// CHECKOUT FLOW
+function openCheckoutDictamen(){
+  openCheckoutPlan('dictamen', '$141.999', 'Dictamen Contable', 141999, 'Por dictamen · 5 días hábiles', 'DICTAMEN_PLAN_ID');
+}
+function openCheckout(){
+  openCheckoutPlan('pro', '$29.999', 'Plan Pro · Mensual', 29999, 'Cancelá cuando quieras', 'TU_PLAN_ID');
+}
+function openCheckoutPlan(planId, precio, planNombre, precioNum, frecuencia, mpPlanId){
+  document.querySelectorAll('.modal-bg').forEach(m=>m.classList.remove('open'));
+  const widgetEmail = document.getElementById('userEmail')?.value || '';
+  if(widgetEmail) document.getElementById('chk-email').value = widgetEmail;
+  // Update modal with plan info
+  document.getElementById('chk-plan-nombre').textContent = planNombre;
+  document.getElementById('chk-plan-nombre-2').textContent = planNombre;
+  document.getElementById('chk-plan-freq').textContent = frecuencia;
+  document.getElementById('chk-plan-precio').textContent = precio;
+  document.getElementById('chk-plan-id').value = planId;
+  document.getElementById('chk-plan-mp').value = mpPlanId;
+  document.getElementById('chk-plan-num').value = precioNum;
+  document.getElementById('checkoutStep1').style.display = 'block';
+  document.getElementById('checkoutStep2').style.display = 'none';
+  document.getElementById('chk-error').style.display = 'none';
+  document.getElementById('checkoutModal').classList.add('open');
+}
+function closeCheckout(){
+  document.getElementById('checkoutModal').classList.remove('open');
+}
+function submitCheckout(){
+  const nombre = document.getElementById('chk-nombre').value.trim();
+  const apellido = document.getElementById('chk-apellido').value.trim();
+  const email = document.getElementById('chk-email').value.trim();
+  const tel = document.getElementById('chk-tel').value.trim();
+  const errEl = document.getElementById('chk-error');
+
+  // Validación
+  if(!nombre){ errEl.textContent='El nombre es obligatorio.'; errEl.style.display='block'; return; }
+  if(!apellido){ errEl.textContent='El apellido es obligatorio.'; errEl.style.display='block'; return; }
+  if(!email || !email.includes('@')){ errEl.textContent='Ingresá un email válido.'; errEl.style.display='block'; return; }
+  if(tel && tel.length > 0 && !/^[0-9\+\-\s\(\)]{6,20}$/.test(tel)){ errEl.textContent='El teléfono ingresado no es válido.'; errEl.style.display='block'; return; }
+  if(!document.getElementById('chk-tnc').checked){ errEl.textContent='Debés aceptar los Términos y Condiciones para continuar.'; errEl.style.display='block'; return; }
+  errEl.style.display='none';
+
+  // Guardar datos (localStorage + futuro endpoint)
+  const planId = document.getElementById('chk-plan-id').value;
+  const precioNum = parseInt(document.getElementById('chk-plan-num').value);
+  const mpPlanId = document.getElementById('chk-plan-mp').value;
+  const lead = { nombre, apellido, email, tel, plan: planId, precio: precioNum, fecha: new Date().toISOString(), pagado: false };
+  try {
+    const leads = JSON.parse(localStorage.getItem('ec_leads') || '[]');
+    leads.push(lead);
+    localStorage.setItem('ec_leads', JSON.stringify(leads));
+  } catch(e){}
+
+  // TODO: cuando tengas backend, descomentar esto:
+  // fetch('https://TU-BACKEND.railway.app/api/leads', {
+  //   method: 'POST',
+  //   headers: {'Content-Type':'application/json'},
+  //   body: JSON.stringify(lead)
+  // });
+
+  // Mostrar step 2
+  document.getElementById('checkoutStep1').style.display = 'none';
+  document.getElementById('checkoutStep2').style.display = 'block';
+  document.getElementById('confirm-email-msg').textContent = 'Te enviamos una confirmación a ' + email + ' cuando se acredite el pago.';
+
+  // Enviar email de confirmación vía backend
+  // TODO: descomentar cuando tengas el backend
+  // fetch('https://TU-BACKEND.railway.app/api/send-confirmation', {
+  //   method: 'POST',
+  //   headers: {'Content-Type':'application/json'},
+  //   body: JSON.stringify({
+  //     to: email,
+  //     nombre: nombre,
+  //     plan: planId,
+  //     precio: precioNum
+  //   })
+  // });
+
+  // Redirigir a MercadoPago después de 1.5s
+  setTimeout(() => {
+    window.open('https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=' + mpPlanId, '_blank');
+    closeCheckout();
+  }, 1500);
+}
+
+// CALCULATOR
+function calcular(){
+  const c=parseFloat(document.getElementById('calcCosto').value)||0;
+  const q=parseFloat(document.getElementById('calcCoef').value)||0;
+  const imp=c*(q/100);
+  const fmt=n=>'$'+Math.round(n).toLocaleString('es-AR');
+  document.getElementById('calcResult').textContent=fmt(imp);
+  document.getElementById('calcAnual').textContent=fmt(imp*12)+' / año adicionales';
+  document.getElementById('calcA').textContent=fmt(c*0.035092);
+  document.getElementById('calcB').textContent=fmt(c*0.058251);
+  document.getElementById('calcC').textContent=fmt(c*0.046621);
+}
+calcular();
+
+// BANNER ROTATIVO
+const adUrls=['https://limpiomax.com.ar','https://seguredificio.com.ar','https://tecniconsorcio.com.ar'];
+let adCurrent=0;
+function showAd(n){
+  document.querySelectorAll('.ad-slide').forEach((s,i)=>{s.classList.toggle('hidden',i!==n);});
+  document.querySelectorAll('.ad-dot').forEach((d,i)=>{d.classList.toggle('active',i===n);});
+  document.getElementById('bannerLink').href=adUrls[n];
+  adCurrent=n;
+}
+setInterval(()=>showAd((adCurrent+1)%3),10000);
+</script>
+<!-- MODAL TÉRMINOS Y CONDICIONES -->
+<div class="modal-bg" id="tncModal" style="align-items:center;justify-content:center;">
+  <div style="background:white;border-radius:14px;max-width:600px;width:92%;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(27,79,216,0.12);animation:fu 0.25s ease;position:relative;">
+    <!-- Header fijo -->
+    <div style="padding:1.5rem 2rem 1.25rem;border-bottom:1px solid #EBEBEB;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#1B4FD8;margin-bottom:0.25rem;">ExpensasClaras</div>
+        <h3 style="font-size:1.25rem;font-weight:800;letter-spacing:-0.5px;color:#0A0A0A;">Términos y Condiciones</h3>
+      </div>
+      <button onclick="closeTnC()" style="background:#F5F5F5;border:none;width:28px;height:28px;border-radius:50%;font-size:0.82rem;color:#666;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">✕</button>
+    </div>
+    <!-- Contenido scrolleable -->
+    <div style="overflow-y:auto;padding:1.75rem 2rem;flex:1;font-size:0.85rem;color:#444;line-height:1.75;">
+
+      <p style="font-size:0.75rem;color:#AAA;margin-bottom:1.5rem;">Última actualización: Junio 2026 · Versión 1.0</p>
+
+      <h4 style="font-size:0.875rem;font-weight:700;color:#0A0A0A;margin-bottom:0.5rem;margin-top:1.5rem;">1. Descripción del servicio</h4>
+      <p>ExpensasClaras es una herramienta digital que analiza liquidaciones de expensas de consorcios de propiedad horizontal mediante inteligencia artificial. Los informes generados son <strong>orientativos y no constituyen asesoramiento legal, contable ni técnico certificado</strong>.</p>
+
+      <h4 style="font-size:0.875rem;font-weight:700;color:#0A0A0A;margin-bottom:0.5rem;margin-top:1.5rem;">2. Limitación de responsabilidad</h4>
+      <p>ExpensasClaras <strong>no garantiza</strong> la exactitud, completitud ni actualidad de los análisis generados. La IA puede cometer errores. Siempre corroborá los resultados con un contador público matriculado antes de tomar decisiones o iniciar acciones legales.</p>
+      <p style="margin-top:0.75rem;">ExpensasClaras no será responsable por daños directos, indirectos o consecuentes que resulten del uso del servicio, incluyendo conflictos con administradores, decisiones administrativas o judiciales.</p>
+
+      <h4 style="font-size:0.875rem;font-weight:700;color:#0A0A0A;margin-bottom:0.5rem;margin-top:1.5rem;">3. Planes y pagos</h4>
+      <p>Los precios se muestran en pesos argentinos (ARS) con referencia al tipo de cambio vigente. El <strong>Plan Pro</strong> se factura mensualmente y puede cancelarse en cualquier momento con efecto al próximo período. El <strong>Dictamen Contable</strong> es un servicio puntual no reembolsable una vez iniciado el proceso de revisión.</p>
+
+      <h4 style="font-size:0.875rem;font-weight:700;color:#0A0A0A;margin-bottom:0.5rem;margin-top:1.5rem;">4. Privacidad y datos personales</h4>
+      <p>Los PDFs subidos se procesan en el momento y no se almacenan de forma permanente. Tu email y datos de contacto se guardan para enviarte el informe y, con tu consentimiento, alertas mensuales. Tus datos están protegidos por la <strong>Ley 25.326 de Protección de Datos Personales</strong> de la República Argentina.</p>
+      <p style="margin-top:0.75rem;">No vendemos ni compartimos tus datos con terceros para fines comerciales bajo ninguna circunstancia.</p>
+
+      <h4 style="font-size:0.875rem;font-weight:700;color:#0A0A0A;margin-bottom:0.5rem;margin-top:1.5rem;">5. Proveedores anunciantes</h4>
+      <p>Los proveedores que aparecen en la sección "Servicios para tu consorcio" son <strong>exclusivamente anunciantes pagos</strong>. No tienen ninguna injerencia en los análisis, informes ni dictámenes de ExpensasClaras. ExpensasClaras no es responsable por los servicios ofrecidos por los anunciantes.</p>
+
+      <h4 style="font-size:0.875rem;font-weight:700;color:#0A0A0A;margin-bottom:0.5rem;margin-top:1.5rem;">6. Propiedad intelectual</h4>
+      <p>El servicio, diseño, metodología de análisis y marca ExpensasClaras son propiedad exclusiva de sus creadores y están protegidos por las leyes de propiedad intelectual de la República Argentina.</p>
+
+      <h4 style="font-size:0.875rem;font-weight:700;color:#0A0A0A;margin-bottom:0.5rem;margin-top:1.5rem;">7. Jurisdicción</h4>
+      <p>Estos Términos se rigen por las leyes de la República Argentina. Ante cualquier controversia, las partes se someten a la jurisdicción de los Tribunales Ordinarios de la Ciudad Autónoma de Buenos Aires.</p>
+
+      <div style="background:#EEF3FF;border-radius:8px;padding:1rem 1.25rem;margin-top:1.75rem;font-size:0.78rem;color:#1B4FD8;line-height:1.6;">
+        ℹ️ Para consultas sobre estos términos escribí a <strong>hola@expensasclaras.com.ar</strong>
+      </div>
+    </div>
+    <!-- Footer fijo -->
+    <div style="padding:1.25rem 2rem;border-top:1px solid #EBEBEB;display:flex;justify-content:flex-end;flex-shrink:0;">
+      <button onclick="acceptTnC()" style="background:#1B4FD8;color:white;font-family:'Satoshi',sans-serif;font-size:0.875rem;font-weight:700;padding:0.75rem 2rem;border-radius:8px;border:none;cursor:pointer;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+        Acepto los Términos y Condiciones
+      </button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
